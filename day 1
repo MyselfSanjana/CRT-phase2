@@ -41,7 +41,57 @@ space comp = O(n);
 
 ***********************************************************************
 
+leetcode problem 2
+MAX SUBARRAY
 
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+      int bestEnd = nums[0];
+      int res = nums[0];
+      int n = nums.size();
+
+      for(int i = 1;i<n;i++){
+        int v1 = bestEnd+nums[i];
+        int v2 = nums[i];
+
+        bestEnd = max(v1,v2);
+        res = max(res,bestEnd);
+      } 
+      return res; 
+    }
+};
+
+leetcode problem 3
+SORT COLORS
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int low = 0;
+        int mid = 0;
+        int high = nums.size() - 1;
+
+        while(mid <= high){
+            if(nums[mid]==0){
+                int temp = nums[low];
+                nums[low]= nums[mid];
+                nums[mid] = temp;
+                low++;
+                mid++;
+            }
+            else if(nums[mid]==1){
+                mid++;
+            }
+            else{
+                int temp = nums[mid];
+                nums[mid] = nums[high];
+                nums[high] = temp;
+                high--;
+            }
+        }
+    }
+};
 
 
 
