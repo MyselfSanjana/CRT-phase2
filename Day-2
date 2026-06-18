@@ -99,5 +99,83 @@ TC: O(n)
 SC: O(1)
 
 ************************************************************************
+Sliding Window 
+gfg:- Max Sum Subarray of size K
+
+class Solution {
+  public:
+    int maxSubarraySum(vector<int>& arr, int k) {
+        // code here
+        int sum = 0;
+        for(int i = 0; i < k; i++) {
+            sum = sum + arr[i];
+        }
+        
+        int maxSum = sum;
+        
+        for(int i = k; i < arr.size(); i++) {
+            sum = sum + arr[i] - arr[i - k ];
+            maxSum = max(maxSum, sum);
+        }
+        return maxSum;
+    }
+};
+
+
+one more solution 
+
+class Solution {
+  public:
+    int maxSubarraySum(vector<int>& arr, int k) {
+        int start= 0;
+        int end = 0;  
+        int n = arr.size();
+        int currSum = 0;
+        int maxSum = INT_MIN;
+        while(end<n){
+            currSum += arr[end];
+            if(end-start+1 < k){              //sum less than target   
+                end++;
+            }else if(end-start+1 == k){           //sum equals to target
+                maxSum = max(maxSum,currSum);
+                currSum -= arr[start];
+                start++;
+                end++;
+            }
+        }
+        return maxSum;
+    }
+};
+
+************************************************************************
+
+leetcode 2149
+Rearrange Array Elements by Sign
+
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+
+        int n = nums.size();
+        vector<int> ans(n);
+        int pos = 0;
+        int neg = 1;
+        for(int i = 0; i < n; i++) {
+            if(nums[i] > 0) {
+                ans[pos] = nums[i];
+                pos = pos+2;
+            }
+            else {
+                ans[neg] = nums[i];
+                neg = neg+2;
+            }
+        }
+        return ans;
+    }
+};
+
+TC: O(n)
+SC: O(1)
+
 
 
