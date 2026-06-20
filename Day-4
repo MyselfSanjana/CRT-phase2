@@ -1,0 +1,93 @@
+
+leetcode 3612. 
+Process String with Special Operations I
+
+class Solution {
+public:
+    string processStr(string s) {
+        string result;
+        for(char ch : s){
+            if(islower(ch)){
+                result.push_back(ch);
+            }
+            else if(ch == '*'){
+                if(!result.empty()){
+                    result.pop_back();
+                }
+            }
+            else if(ch == '#'){
+                result= result +result;
+            }
+            else if(ch == '%'){
+                reverse(result.begin(),result.end());
+            }
+        }
+        return result;
+    }
+};
+
+*******************************************************
+online compiler binary search code
+
+#include <iostream>
+#include<vector>
+using namespace std;
+
+int binarySearch(vector<int> &nums , int target){
+        int n = nums.size();
+        int low = 0;
+        int high = n-1;
+        
+    while(low<=high){
+        int mid = (low+high)/2;
+        if(nums[mid] == target){
+            return mid;
+        }else if(nums[mid] <= target){
+            low = mid+1;
+        }else{
+            high = mid-1;
+        }
+    }
+    return -1;
+}
+int main(){
+    vector<int> nums = {1,2,3,4,5};
+    int target = 3;
+    int result = binarySearch(nums,target);
+    
+    if(result == -1){
+        cout<<"element not found";
+    }else{
+        cout<<"element is fount at "<<result;
+    }
+    return 0;
+}
+*******************************************************
+
+gfg ceil in a sorted array.
+
+class Solution {
+  public:
+    int findCeil(vector<int>& arr, int x) {
+        int n = arr.size();
+        int low = 0;
+        int high = n-1;
+        int res = -1;
+        
+        while(low<=high){
+            int guess = (low+high)/2;
+            if(arr[guess]<x){
+                low = guess + 1;
+            }else{
+                high = guess - 1;
+                res = guess;
+            }
+        }
+        return res;
+    }
+};
+
+*******************************************************
+
+
+
