@@ -50,3 +50,72 @@ TC:- O(n)
 SC:- O(1)
 
 ****************************************************************
+
+leetcode 42
+trapping rainwater
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        vector<int> left(n), right(n);
+
+        left[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            left[i] = max(left[i - 1], height[i]);
+        }
+        right[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            right[i] = max(right[i + 1], height[i]);
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans += (min(left[i], right[i]) - height[i]);
+        }
+        return ans;
+    }
+};
+/// prefix sum and suffix sum approach used.
+// then took the minimum out of prefix and suffix.
+
+****************************************************************
+
+leetcode 796
+rotate string
+
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        if(s.size() != goal.size()){
+            return false;
+        }
+        string doubleString  = s+s;
+        return doubleString.contains(goal);
+    }
+};
+****************************************************************
+
+leetcode 242
+valid anagram
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        if(s.size() != t.size())
+            return false;
+
+        int freq[26] = {0};
+        for(int i = 0; i < s.size(); i++) {
+            freq[s[i] - 'a']++;
+            freq[t[i] - 'a']--;
+        }
+
+        for(int i = 0; i < 26; i++) {
+            if(freq[i] != 0)
+                return false;
+        }
+        return true;
+    }
+};
+//frequency ki help se solved this ques.
+
