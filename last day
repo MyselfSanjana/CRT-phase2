@@ -1,0 +1,85 @@
+DP
+
+// recursion has 2 types :-
+// 1. head recursion,2. tail recursion.
+// this is head recursion.
+// and head recursion me base condn hogi ki prog kab stop hoga.
+// or tail recursion ki base condn hogi ki min value kya daallu ki valid o/p
+// mile.
+
+leetcode 198. House Robber
+
+brute force
+class Solution {
+public:
+    int robFrom(vector<int>& nums, int i) {
+        if (i >= nums.size())
+            return 0;
+    
+    int rob = nums[i] + robFrom(nums, i + 2);
+    int notRob = robFrom(nums, i + 1);
+    return max(rob, notRob);
+    } 
+    int rob(vector<int>& nums) {
+    return robFrom(nums, 0);
+    }
+};
+
+optimal approach
+DP se karna haiii
+
+
+leetcode 322. Coin Change
+
+brute force
+class Solution {
+public:
+    int minCoins(vector<int>& coins, int amount){
+        //base condition
+        if(amount == 0){
+        return 0;
+        }
+        if(amount < 0){
+            return INT_MAX;
+        }
+        //logic
+        int minimum = INT_MAX;
+        for(int i = 0;i<coins.size();i++){
+            int newAmount = minCoins(coins,amount-coins[i]);
+        
+        if(newAmount != INT_MAX)
+            minimum = min(minimum, newAmount + 1);
+        }
+        return minimum;
+     }
+        int coinChange(vector<int>& coins, int amount){
+            int ans = minCoins(coins,amount);
+            return (ans == INT_MAX) ? -1 : ans;
+    }
+};
+
+
+optimise it by DP
+
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector <int> dp(amount + 1,amount + 1); // initially impossible maan lo
+
+        dp[0] = 0;
+        for(int i = 1; i<=amount;i++){
+            for(int j=0;j<coins.size();j++){
+                int coin = coins[j];
+                if(i>=coin){
+                    int currAns = dp[i];
+                    int ansUsed = dp[i-coin]+1;
+                    dp[i] = min(currAns,ansUsed);
+                }
+            }
+        }
+        if (dp[amount]>amount){
+            return -1;
+        }
+        return dp[amount];
+    }
+};
